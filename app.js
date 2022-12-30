@@ -4,11 +4,20 @@ const app = express()
 const port = 3000
 // Mongoose 連線「被執行」
 require('./config/mongoose')
+const exphbs = require('express-handlebars');
+
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 
-// 設定首頁路由
+app.use(express.static('public'))
+
+// 路由
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.render('index', { title: 'URL-Shortener'})
+})
+app.post('/shorten', (req, res) => {
+  res.render('urlShortner', { title: 'Shorten Succeed!' })
 })
 
 // 設定 port 3000

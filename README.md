@@ -53,5 +53,5 @@ ctrl + c
 
 - [x]  Shorten-URL
 - [x]  Copy button for the link
-- [ ]  product QR code
+- [ ]  produce a QR code
 - [ ]  show all the links of URLs

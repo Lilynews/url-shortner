@@ -11,6 +11,7 @@
 - Users can click the link of the shorter URL to go to the website
 - Users can click the **Copy** button to copy the shorter URL
 - Users can click the **Back** button to the home page and produce a new shorter URL
+![](public/images/shorten.png)
 
 ## 🛠️ Installation
 

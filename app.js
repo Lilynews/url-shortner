@@ -11,7 +11,6 @@ const urlDB = require('./models/url')
 const bodyParser = require('body-parser')
 
 
-
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
@@ -29,17 +28,18 @@ app.post('/', (req, res) => {
   urlDB.create({ url: req.body.inputUrl, urlShortner: randomNumber })
   .then(() => { res.render('urlShortner', { title: 'Shorten Succeed!', randomNumber, host }) })
   .catch(error => console.log('post router error'))
-
-  
 })
 
-app.get('/:randomNumber', (req, res) => {
+app.get('/result/:randomNumber', (req, res) => {
   const randomNumber = req.params.randomNumber
   urlDB.findOne({ urlShortner: randomNumber })
-  .then(urlLink => res.redirect(urlLink.url))
+  .then(urlLink => { res.redirect(urlLink.url)
+    // if(urlLink) {
+    //    res.redirect(urlLink.url)
+    // }
+  })
   .catch(error => console.log('get/: router error'))
 })
-
 
 // 設定 port 3000
 app.listen(port, () => {

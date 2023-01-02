@@ -1,6 +1,4 @@
 const randomLength = 5
-const urlDB = require('../../models/url')
-
 
 // define sample function to randomly return an item in an array
 function sample(array) {
@@ -9,7 +7,7 @@ function sample(array) {
 }
 
 // Generate randomNumber function
-function randomNumber(randomLength) {
+function randomNumber() {
   const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
   const upperCaseLetters = lowerCaseLetters.toUpperCase()
   const numbers = '1234567890'
@@ -26,19 +24,23 @@ function randomNumber(randomLength) {
 
 }
 
-// non-repeated-shorten url
-function uniqueRandom() {
-  const uniqueRandomNumber = randomNumber(randomLength)
-  urlDB.findOne({ urlShortner: uniqueRandomNumber })
-    .lean()
-    .then(urlShortLink => {
-      if (urlShortLink) {
-        uniqueRandom()
-      }
-    })
-    .catch(error => console.log('uniqueRandom error'))
-  return uniqueRandomNumber
-}
+
+// // non-repeated-shorten url
+
+// const urlDB = require('../../models/url')
+
+// function uniqueRandom() {
+//   const uniqueRandomNumber = randomNumber(randomLength)
+//   urlDB.findOne({ urlShortner: uniqueRandomNumber })
+//     .lean()
+//     .then(urlShortLink => {
+//       if (urlShortLink) {
+//         uniqueRandom()
+//       }
+//     })
+//     .catch(error => console.log('uniqueRandom error'))
+//   return uniqueRandomNumber
+// }
 
 // export generatePassword function for other files to use
-module.exports = uniqueRandom
+module.exports = randomNumber

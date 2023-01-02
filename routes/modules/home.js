@@ -12,10 +12,22 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   let randomNumber = generateRandom()
-  urlDB.create({ url: req.body.inputUrl, urlShortner: randomNumber })
-    .then(() => { res.render('urlShortner', { title: 'Shorten Succeed!', randomNumber, host }) })
+  let url = req.body.inputUrl
+
+  urlDB.findOne({ url })
+    .lean()
+    .then((result) => {
+      if (!result) {
+        urlDB.create({ url, urlShortner: randomNumber })
+          .then(() => {
+            res.render('urlShortner', { title: 'Shorten Succeed!', randomNumber, host })
+          })
+      } else {
+        res.render('urlShortner', { title: 'you had this link before!', randomNumber: result.urlShortner, host })
+      }
+    })
     .catch(error => console.log('post router error'))
 })
 
-module.exports = router
 
+module.exports = router
